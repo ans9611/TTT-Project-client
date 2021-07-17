@@ -26,8 +26,18 @@ const signOut = function() {
   });
 }
 
+const newGame = function() {
+  return $.ajax({
+    url: 'https://tic-tac-toe-api-development.herokuapp.com/games',
+    method: 'POST',
+
+
+  });
+}
+
 module.exports = {
   signUp,
   signIn,
-  signOut
+  signOut,
+  newGame
 };

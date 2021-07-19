@@ -1,11 +1,14 @@
 const store = require('./../store')
 // const game = require('./../gameStore')
+const addNestedValue = require('./../../lib/add-nested-value')
+
 
 const onSignUpSuccess = (response) => {
   $('#message').text(`Thank you for signing! ${response.user.email}`)
   console.log(response)
   $('#sign-out').hide()
   $('#new-game').hide()
+  $("#game-board").hide();
 }
 
 const onSighUpFailure = () => {
@@ -13,6 +16,7 @@ const onSighUpFailure = () => {
     $('#sign-up').trigger('reset');
     $('#sign-out').hide();
     $('#new-game').hide();
+    $('#game-board').hide();
 }
 
 const onSignInSuccess = (response) => {
@@ -26,12 +30,14 @@ const onSignInSuccess = (response) => {
   $('#sign-up').hide()
   $('#sign-out').show()
   $('#new-game').show()
+  $('#game-board').hide();
 }
 
 const onSignInFailure = () => {
   $('#message').text(`Unable to sign in :( check email or password again!`);
   console.log(response);
   $('#sign-in').trigger('reset');
+  $('#game-board').hide();
 }
 
 const onSignOutSuccess = () => {
@@ -39,6 +45,7 @@ const onSignOutSuccess = () => {
     $('#sign-in').show();
     $('#sign-up').show();
     $('#sign-out').hide();
+    $('#game-board').hide()
 
 }
 const onSignOutFailure = () => {
@@ -47,6 +54,7 @@ const onSignOutFailure = () => {
 
 const onCreateNewGameSuccess = (response) => {
   $('#message').text(`Game Begins`)
+  $('#game-board').show()
 
   store.cells = response.game.cells
   store.id = response.game.owner
@@ -56,6 +64,11 @@ const onCreateNewGameSuccess = (response) => {
 
   console.log(game)
   console.log(userId)
+  console.log(response)
+
+
+
+
 }
 
 const onCreateNewGameFailure = () => {

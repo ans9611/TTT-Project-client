@@ -8,7 +8,7 @@ const onSignUpSuccess = (response) => {
   console.log(response)
   $('#sign-out').hide()
   $('#new-game').hide()
-  $("#game-board").hide();
+  $('#game-board').hide();
 }
 
 const onSighUpFailure = () => {

@@ -9,4 +9,6 @@ $(() => {
   $('#sign-in').on('submit', addEvents.onSignIn)
   $('#sign-out').on('submit', addEvents.onSignOut)
   $('#new-game').on('submit', addEvents.onNewGame)
+  $('.square').on('click', addEvents.onPlayGame)
+
 })

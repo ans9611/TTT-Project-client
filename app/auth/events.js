@@ -1,7 +1,9 @@
+const store = require('./../store')
 const api = require('./api')
 const ui = require('./ui')
 const getFormFields = require('./../../lib/get-form-fields')
 const addNestedValue = require('./../../lib/add-nested-value')
+
 
 
 const onSignUp = function(event){
@@ -39,16 +41,41 @@ const onSignOut = function (event) {
 
 const onNewGame = function (event) {
   event.preventDefault()
-  form = event.target
-  data = getFormFields(form)
+
     api.newGame(data)
     .then(ui.onCreateNewGameSuccess)
     .catch(ui.onCreateNewGameFailure)
 }
 
+// let turn = true;
+// let currentPlayer = "x";
+let currentPlayer = 'x';
+const onPlayGame = (event) => {
+  event.preventDefault()
+  const form = event.target
+  const cellIndex = $(form).attr('id')
+//When I click, gets index number
+
+currentPlayer = currentPlayer === "o" ? "x" : "o";
+
+  const game = {
+    cell: {
+      index: cellIndex,
+      value: currentPlayer
+    },
+    over: false,
+  };
+
+  api.playGame(game)
+  .then(ui.onPlayGameSuccess)
+  .catch(ui.onPlayGameFailure)
+}
+
+
 module.exports = {
   onSignUp,
   onSignIn,
   onSignOut,
-  onNewGame
+  onNewGame,
+  onPlayGame
 };

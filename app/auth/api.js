@@ -38,9 +38,24 @@ const newGame = function(data) {
   });
 }
 
+const playGame = function (game) {
+  console.log(store)
+  return $.ajax({
+    url: config.apiUrl + '/games/' + store.game._id,
+    method: 'PATCH',
+    headers: {
+      Authorization: 'Bearer ' + store.token,
+    },
+    data: {game}
+    }
+  );
+}
+
+
 module.exports = {
   signUp,
   signIn,
   signOut,
-  newGame
-};
+  newGame,
+  playGame
+}

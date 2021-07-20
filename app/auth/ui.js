@@ -8,7 +8,7 @@ const onSignUpSuccess = (response) => {
   console.log(response)
   $('#sign-out').hide()
   $('#new-game').hide()
-  $('#game-board').hide();
+  $('#board').hide();
 }
 
 const onSighUpFailure = () => {
@@ -16,7 +16,7 @@ const onSighUpFailure = () => {
     $('#sign-up').trigger('reset');
     $('#sign-out').hide();
     $('#new-game').hide();
-    $('#game-board').hide();
+    $('#board').hide();
 }
 
 const onSignInSuccess = (response) => {
@@ -25,19 +25,21 @@ const onSignInSuccess = (response) => {
   console.log(response.user)
   console.log(response.user.token)
   store.token = response.user.token
+  store.id = response.user._id
+  console.log(store.id)
   $('#sign-up').trigger('reset')
   $('#sign-in').hide()
   $('#sign-up').hide()
   $('#sign-out').show()
   $('#new-game').show()
-  $('#game-board').hide();
+  $('#board').hide();
 }
 
 const onSignInFailure = () => {
   $('#message').text(`Unable to sign in :( check email or password again!`);
   console.log(response);
   $('#sign-in').trigger('reset');
-  $('#game-board').hide();
+  $('#board').hide();
 }
 
 const onSignOutSuccess = () => {
@@ -45,7 +47,7 @@ const onSignOutSuccess = () => {
     $('#sign-in').show();
     $('#sign-up').show();
     $('#sign-out').hide();
-    $('#game-board').hide()
+    $('#board').hide()
 
 }
 const onSignOutFailure = () => {
@@ -54,25 +56,25 @@ const onSignOutFailure = () => {
 
 const onCreateNewGameSuccess = (response) => {
   $('#message').text(`Game Begins`)
-  $('#game-board').show()
-
-  store.cells = response.game.cells
-  store.id = response.game.owner
-
-  game = store.cells
-  userId = store.id
-
-  console.log(game)
-  console.log(userId)
-  console.log(response)
-
-
-
-
+  $('#board').show()
+    store.game = response.game
+    // //returns {game = {cells [], over, id}}
+    // console.log(store.game)
 }
 
 const onCreateNewGameFailure = () => {
   $('#message').text(`Unable to start Game :( you are destined to study instead of playing a game!`)
+}
+
+const onPlayGameSuccess = (response) => {
+  $('#message').text('onPlayGameSuccess')
+  let board = response.game.cells
+  console.log(board)
+}
+
+const onPlayGameFailure = () => {
+  $('#message').text('on play game faile')
+
 }
 
 module.exports = {
@@ -83,5 +85,7 @@ module.exports = {
   onSignOutSuccess,
   onSignOutFailure,
   onCreateNewGameSuccess,
-  onCreateNewGameFailure
+  onCreateNewGameFailure,
+  onPlayGameSuccess,
+  onPlayGameFailure
 };

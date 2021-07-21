@@ -1,1 +1,54 @@
 @import '~bootstrap/scss/bootstrap';
+
+body {
+  background-color: beige;
+
+
+}
+
+.container {
+  height: 100vh;
+}
+
+.board {
+  margin: auto;
+  // se the max size board to be 100% of
+  max-height: calc(100vh - 75px);
+  max-width: calc(100vh - 75px);
+  background: url('./../../public/Eric\ Thomas\ -\ Success\ pic.jpeg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+ }
+
+.box {
+  border-right: 1px solid black;
+  border-bottom: 1px solid black;
+
+  &:nth-child(3n){
+    border-right:0;
+  }
+
+  &:nth-last-child(-1n+3){
+    border-bottom:0;
+  }
+
+  min-height: calc(100% / 3);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  color: white;
+  font-size: 15vh;
+
+
+  text-shadow: 2px 2px rgba(0, 0, 0, .25);
+
+  &:hover {
+    background-color: lightskyblue;
+    user-select: none;
+  }
+  //user not select our text when clicking on it
+
+}

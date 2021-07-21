@@ -1,7 +1,5 @@
 const store = require('./../store')
 // const game = require('./../gameStore')
-const addNestedValue = require('./../../lib/add-nested-value')
-
 
 const onSignUpSuccess = (response) => {
   $('#message').text(`Thank you for signing! ${response.user.email}`)
@@ -58,18 +56,17 @@ const onCreateNewGameSuccess = (response) => {
   $('#message').text(`Game Begins`)
   $('#board').show()
     store.game = response.game
-    // //returns {game = {cells [], over, id}}
-    // console.log(store.game)
 }
 
 const onCreateNewGameFailure = () => {
   $('#message').text(`Unable to start Game :( you are destined to study instead of playing a game!`)
 }
 
+
 const onPlayGameSuccess = (response) => {
   $('#message').text('onPlayGameSuccess')
-  let board = response.game.cells
-  console.log(board)
+  store.cells = response.game.cells
+  console.log(store.cells)
 }
 
 const onPlayGameFailure = () => {

@@ -45,18 +45,17 @@ const onNewGame = function (event) {
     .catch(ui.onCreateNewGameFailure)
 }
 
+
 let currentPlayer = 'X'
 const onBoxClick = function (event) {
-  console.log("click")
+
+
   const box = $(event.target)
   box.css("background", "transparent")
   currentPlayer = currentPlayer === "O" ? "X" : "O";
 
   box.text(currentPlayer);
   const requestIndex = box.data('index')
-
-  console.log(requestIndex)
-
 
   const game = {
     cell: {
@@ -77,5 +76,4 @@ module.exports = {
   onSignOut,
   onNewGame,
   onBoxClick
-
 };

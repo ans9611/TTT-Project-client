@@ -1,9 +1,22 @@
 @import '~bootstrap/scss/bootstrap';
 
+h1 {
+  text-align: center;
+  padding-top: 20px;
+  font-family: "Lucida Console", "Courier New", monospace;
+  border-bottom: 10px solid  rgb(85, 85, 160);
+  background-color: aqua;
+  font-size: 50px;
+}
+
 body {
   background-color: beige;
+}
 
-
+#sign-up {
+  border-bottom: 10px solid  rgb(85, 85, 160);
+  padding-top: 20px;
+  padding-bottom: 20px;
 }
 
 .container {
@@ -22,8 +35,8 @@ body {
  }
 
 .box {
-  border-right: 1px solid black;
-  border-bottom: 1px solid black;
+  border-right: 3px solid blue;
+  border-bottom: 3px solid  blue;
 
   &:nth-child(3n){
     border-right:0;
@@ -39,7 +52,7 @@ body {
   justify-content: center;
   align-items: center;
   background-color: white;
-  color: white;
+  color: rgb(170, 45, 45);
   font-size: 15vh;
 
 

@@ -11,6 +11,6 @@ $(() => {
   $('#new-game').on('submit', addEvents.onNewGame)
   $(".box").on("click", addEvents.onBoxClick)
   $("#sign-out").hide()
-  $("#new-game").hide()
+  $('#new-game').hide()
   $(".box").hide()
 })

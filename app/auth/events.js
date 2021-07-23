@@ -46,6 +46,12 @@ const onNewGame = function (event) {
 }
 
 
+
+
+
+
+
+
 let currentPlayer = 'X'
 const onBoxClick = function (event) {
 
@@ -57,6 +63,7 @@ const onBoxClick = function (event) {
   box.text(currentPlayer);
   const requestIndex = box.data('index')
 
+
   const game = {
     cell: {
       index: requestIndex,
@@ -65,10 +72,22 @@ const onBoxClick = function (event) {
     over: false,
   }
 
+
+
   api.playGame(game)
     .then(ui.onPlayGameSuccess)
     .catch(ui.onPlayGameFailure)
 }
+
+
+
+
+
+
+
+
+
+
 
 module.exports = {
   onSignUp,

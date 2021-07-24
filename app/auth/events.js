@@ -46,37 +46,39 @@ const onNewGame = function (event) {
 }
 
 
-
-
-
-
-
-
+let gameOver = false
 let currentPlayer = 'X'
+
+
+
+//creating event handler which allows current game player (user) selects target spot of the board
 const onBoxClick = function (event) {
+  //target spot of the game board. By using jQujery, stores it to 'box' variable
+  //I did not understand how does store the data?? jQuery data??
 
+  const box = $(event.target);
 
-  const box = $(event.target)
-  box.css("background", "transparent")
-  currentPlayer = currentPlayer === "O" ? "X" : "O";
+  //By using $('selectedElement').data(), a getter method  I can retrieve data-element
+  const requestIndex = box.data("index");
+  console.log(requestIndex)
 
-  box.text(currentPlayer);
-  const requestIndex = box.data('index')
+//The event handler only executes when the empty box of game board
 
+  if (box.text() === "") {
+    box.css("background", "transparent");
+    box.text(currentPlayer);
 
-  const game = {
-    cell: {
-      index: requestIndex,
-      value: currentPlayer
-    },
-    over: false,
+    const game = {
+      cell: {
+        index: requestIndex,
+        value: currentPlayer,
+      },
+      over: false,
+    };
+
+    currentPlayer = currentPlayer === "O" ? "X" : "O";
+    api.playGame(game).then(ui.onPlayGameSuccess).catch(ui.onPlayGameFailure);
   }
-
-
-
-  api.playGame(game)
-    .then(ui.onPlayGameSuccess)
-    .catch(ui.onPlayGameFailure)
 }
 
 

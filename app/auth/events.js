@@ -1,8 +1,8 @@
-const store = require('./../store')
+const store = require('../store')
 const api = require('./api')
 const ui = require('./ui')
-const getFormFields = require('./../../lib/get-form-fields')
-const addNestedValue = require('./../../lib/add-nested-value')
+const getFormFields = require('../../lib/get-form-fields')
+const addNestedValue = require('../../lib/add-nested-value')
 
 const onSignUp = function(event){
   event.preventDefault()
@@ -31,7 +31,6 @@ const onSignIn = function(event){
 }
 
 const onSignOut = function (event) {
-  event.preventDefault()
   api.signOut()
   .then(ui.onSignOutSuccess)
   .catch(ui.onSignOutFailure)
@@ -49,12 +48,8 @@ const onNewGame = function (event) {
 let gameOver = false
 let currentPlayer = 'X'
 
-
-
 //creating event handler which allows current game player (user) selects target spot of the board
 const onBoxClick = function (event) {
-  //target spot of the game board. By using jQujery, stores it to 'box' variable
-  //I did not understand how does store the data?? jQuery data??
 
   const box = $(event.target);
 
@@ -62,8 +57,7 @@ const onBoxClick = function (event) {
   const requestIndex = box.data("index");
   console.log(requestIndex)
 
-//The event handler only executes when the empty box of game board
-
+//Player can only place on the empty spot of the box
   if (box.text() === "") {
     box.css("background", "transparent");
     box.text(currentPlayer);
@@ -73,23 +67,13 @@ const onBoxClick = function (event) {
         index: requestIndex,
         value: currentPlayer,
       },
-      over: false,
+      over: false
     };
 
     currentPlayer = currentPlayer === "O" ? "X" : "O";
     api.playGame(game).then(ui.onPlayGameSuccess).catch(ui.onPlayGameFailure);
   }
 }
-
-
-
-
-
-
-
-
-
-
 
 module.exports = {
   onSignUp,

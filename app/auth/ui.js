@@ -36,6 +36,7 @@ const onSignOutSuccess = () => {
     $('#sign-in').show();
     $('#sign-up').show();
     $('#sign-out').hide();
+    $("#new-game").hide()
     $('.box').hide()
 
 }
@@ -47,6 +48,7 @@ const onCreateNewGameSuccess = (response) => {
   $('#message').text(`Game Begins`)
   $('.box').show()
     store.game = response.game
+  $("#new-game").hide();
 }
 
 const onCreateNewGameFailure = () => {

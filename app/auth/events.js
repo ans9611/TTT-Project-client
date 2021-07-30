@@ -2,7 +2,6 @@ const store = require('../store')
 const api = require('./api')
 const ui = require('./ui')
 const getFormFields = require('../../lib/get-form-fields')
-const addNestedValue = require('../../lib/add-nested-value')
 
 const onSignUp = function(event){
   event.preventDefault()
@@ -44,35 +43,93 @@ const onNewGame = function (event) {
     .catch(ui.onCreateNewGameFailure)
 }
 
+const onPlayAgain = function (event) {
+  event.preventDefault();
+
+  api.newGame(data)
+    .then(ui.onCreateNewGameSuccess)
+    .catch(ui.onCreateNewGameFailure);
+};
+
+
 
 let gameOver = false
 let currentPlayer = 'X'
-
 //creating event handler which allows current game player (user) selects target spot of the board
 const onBoxClick = function (event) {
-
   const box = $(event.target);
+  const gameBoard = store.game.cells;
+  let requestIndex = box.data("index");
 
-  //By using $('selectedElement').data(), a getter method  I can retrieve data-element
-  const requestIndex = box.data("index");
-  console.log(requestIndex)
-
-//Player can only place on the empty spot of the box
-  if (box.text() === "") {
-    box.css("background", "transparent");
-    box.text(currentPlayer);
-
-    const game = {
-      cell: {
-        index: requestIndex,
-        value: currentPlayer,
-      },
-      over: false
-    };
-
-    currentPlayer = currentPlayer === "O" ? "X" : "O";
-    api.playGame(game).then(ui.onPlayGameSuccess).catch(ui.onPlayGameFailure);
+  const requestData = {
+    gameIndex: requestIndex,
+    gameCurrentPlayer: currentPlayer
   }
+
+    if (store.game.over === true) {
+      const fail = "New time";
+      ui.onPlayGameFailure(fail);
+      return;
+    }
+
+    if (gameBoard[requestData.gameIndex] === "X" || gameBoard[requestData.gameIndex] === "O") {
+      ui.onPlayGameFailure;
+      return
+    }
+
+    if (box.text() === "" && gameOver === false) {
+      box.css("background", "transparent");
+      box.text(currentPlayer);
+      gameBoard[requestData.gameIndex] = requestData.gameCurrentPlayer
+    } else {
+      requestIndex = null;
+      currentPlayer = null;
+    }
+
+  console.log(gameBoard)
+   if (
+     //  row win
+     (gameBoard[0] === gameBoard[1] && gameBoard[1] === gameBoard[2] && (gameBoard[2] === "X" || gameBoard[2] === "O")) ||
+     (gameBoard[3] === gameBoard[4] && gameBoard[4] === gameBoard[5] && (gameBoard[5] === "X" || gameBoard[5] === "O")) ||
+     (gameBoard[6] === gameBoard[7] && gameBoard[7] === gameBoard[8] && (gameBoard[8] === "X" || gameBoard[8] === "O")) ||
+     // coloum win
+     (gameBoard[0] === gameBoard[3] && gameBoard[3] === gameBoard[6] && (gameBoard[0] === "X" || gameBoard[0] === "O")) ||
+     (gameBoard[1] === gameBoard[4] && gameBoard[4] === gameBoard[7] && (gameBoard[1] === "X" || gameBoard[1] === "O")) ||
+     (gameBoard[2] === gameBoard[5] && gameBoard[5] === gameBoard[8] && (gameBoard[8] === "X" || gameBoard[8] === "O")) ||
+     //  diagnol win
+     (gameBoard[0] === gameBoard[4] && gameBoard[4] === gameBoard[8] && (gameBoard[4] === "X" || gameBoard[4] === "O")) ||
+     (gameBoard[2] === gameBoard[4] && gameBoard[4] === gameBoard[6] && (gameBoard[4] === "X" || gameBoard[4] === "O"))
+   ) {
+     gameOver = true
+     currentPlayer = currentPlayer === "O" ? "X" : "O";
+     ui.onGameWin(currentPlayer)
+     console.log('win')
+   }
+
+   console.log(gameBoard)
+  let count = gameBoard.filter(value => value != "").length
+  console.log(count.length)
+  console.log(count)
+  if (count === 8) {
+    gameOver = true
+    console.log('tie!')
+    ui.onGameTie
+  }
+
+ const game = {
+   cell: {
+     index: requestData.gameIndex,
+     value: requestData.gameCurrentPlayer,
+   },
+   over: gameOver,
+ };
+
+currentPlayer = currentPlayer === "O" ? "X" : "O";
+
+ api.playGame(game).then(ui.onPlayGameSuccess).catch(ui.onPlayGameFailure);
+
+
+
 }
 
 module.exports = {
@@ -80,5 +137,6 @@ module.exports = {
   onSignIn,
   onSignOut,
   onNewGame,
-  onBoxClick
+  onBoxClick,
+  onPlayAgain,
 };

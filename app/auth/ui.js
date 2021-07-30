@@ -57,13 +57,21 @@ const onCreateNewGameFailure = () => {
 
 const onPlayGameSuccess = (response) => {
   $('#message').text('onPlayGameSuccess')
-  store.cells = response.game.cells
-  console.log(store.cells)
+  store.game = response.game
 }
 
 const onPlayGameFailure = () => {
   $('#message').text('on play game faile')
+}
 
+const onGameWin = (winner) => {
+  $("#gameMessage").text(`${winner} WINS!`);
+  $("#play-again").show()
+}
+
+const onGameTie = () => {
+  $("#gameMessage").text(`There Cannot be two suns in the sky. Play Again!`);
+  $("#play-again").show();
 }
 
 module.exports = {
@@ -76,5 +84,7 @@ module.exports = {
   onCreateNewGameSuccess,
   onCreateNewGameFailure,
   onPlayGameSuccess,
-  onPlayGameFailure
+  onPlayGameFailure,
+  onGameWin,
+  onGameTie,
 };

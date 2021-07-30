@@ -4,7 +4,10 @@ let numCellMatrix = [
   [1, 1, 1]
 ]
 
-const numWinnerAdd = function() {
+let currentyPlayer = "X"
+
+
+const numWinnerAdd = function(currentPlayer, ) {
     If (currentPlayer === "X") {
       if (requestIndex === 0 || 1 || 2) {
         numCellMatrix[0][requestIndex] = 0
@@ -62,9 +65,9 @@ const numWinner = function {
 
 
 let cellMatrix = [
-  [, , ,],
-  [, , ,],
-  [, , ,]
+  [, , ],
+  [, , ],
+  [, , ]
 ]
 // made empty matrix
 // inside of clcik function,

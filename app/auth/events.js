@@ -37,20 +37,15 @@ const onSignOut = function (event) {
 
 const onNewGame = function (event) {
   event.preventDefault()
+  form = event.target;
+  data = getFormFields(form);
+
+  console.log(data)
 
     api.newGame(data)
     .then(ui.onCreateNewGameSuccess)
     .catch(ui.onCreateNewGameFailure)
 }
-
-const onPlayAgain = function (event) {
-  event.preventDefault();
-
-  api.newGame(data)
-    .then(ui.onCreateNewGameSuccess)
-    .catch(ui.onCreateNewGameFailure);
-};
-
 
 
 let gameOver = false
@@ -58,17 +53,18 @@ let currentPlayer = 'X'
 //creating event handler which allows current game player (user) selects target spot of the board
 const onBoxClick = function (event) {
   const box = $(event.target);
-  const gameBoard = store.game.cells;
+  let gameBoard = store.game.cells;
   let requestIndex = box.data("index");
 
-  const requestData = {
+  let requestData = {
     gameIndex: requestIndex,
     gameCurrentPlayer: currentPlayer
   }
 
+
+
     if (store.game.over === true) {
-      const fail = "New time";
-      ui.onPlayGameFailure(fail);
+      ui.onPlayGameFailure
       return;
     }
 
@@ -77,14 +73,13 @@ const onBoxClick = function (event) {
       return
     }
 
-    if (box.text() === "" && gameOver === false) {
+    if (box.text() === "") {
       box.css("background", "transparent");
       box.text(currentPlayer);
-      gameBoard[requestData.gameIndex] = requestData.gameCurrentPlayer
-    } else {
-      requestIndex = null;
-      currentPlayer = null;
+      gameOver = false
     }
+
+  gameBoard[requestData.gameIndex] = requestData.gameCurrentPlayer;
 
   console.log(gameBoard)
    if (
@@ -101,19 +96,15 @@ const onBoxClick = function (event) {
      (gameBoard[2] === gameBoard[4] && gameBoard[4] === gameBoard[6] && (gameBoard[4] === "X" || gameBoard[4] === "O"))
    ) {
      gameOver = true
-     currentPlayer = currentPlayer === "O" ? "X" : "O";
      ui.onGameWin(currentPlayer)
-     console.log('win')
+
    }
 
-   console.log(gameBoard)
   let count = gameBoard.filter(value => value != "").length
-  console.log(count.length)
-  console.log(count)
   if (count === 8) {
     gameOver = true
     console.log('tie!')
-    ui.onGameTie
+    ui.onGameTie()
   }
 
  const game = {
@@ -137,6 +128,6 @@ module.exports = {
   onSignIn,
   onSignOut,
   onNewGame,
-  onBoxClick,
-  onPlayAgain,
+  onBoxClick
+
 };

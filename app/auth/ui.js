@@ -46,9 +46,16 @@ const onSignOutFailure = () => {
 
 const onCreateNewGameSuccess = (response) => {
   $('#message').text(`Game Begins`)
+  $("#gameMessage").text("")
   $('.box').show()
-    store.game = response.game
-  $("#new-game").hide();
+  $(".box").trigger('reset')
+  $('.board').trigger('reset');
+  $('.box').css("background","");
+  $(".box").css("transparent", "");
+  $(".box").text("")
+
+  store.game = response.game
+
 }
 
 const onCreateNewGameFailure = () => {
@@ -66,12 +73,13 @@ const onPlayGameFailure = () => {
 
 const onGameWin = (winner) => {
   $("#gameMessage").text(`${winner} WINS!`);
-  $("#play-again").show()
+  $("#new-game").show();
 }
 
 const onGameTie = () => {
   $("#gameMessage").text(`There Cannot be two suns in the sky. Play Again!`);
-  $("#play-again").show();
+  $("#new-game").show();
+
 }
 
 module.exports = {

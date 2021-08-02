@@ -1,0 +1,67 @@
+@import '~bootstrap/scss/bootstrap';
+
+h1 {
+  text-align: center;
+  padding-top: 20px;
+  font-family: "Lucida Console", "Courier New", monospace;
+  border-bottom: 10px solid  rgb(85, 85, 160);
+  background-color: aqua;
+  font-size: 50px;
+}
+
+body {
+  background-color: beige;
+}
+
+#sign-up {
+  border-bottom: 10px solid  rgb(85, 85, 160);
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.container {
+  height: 100vh;
+}
+
+.board {
+  margin: auto;
+  // se the max size board to be 100% of
+  max-height: calc(100vh - 75px);
+  max-width: calc(100vh - 75px);
+  // background: url('./../../public/Eric\ Thomas\ -\ Success\ pic.jpeg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+ }
+
+.box {
+  border-right: 3px solid blue;
+  border-bottom: 3px solid  blue;
+
+  &:nth-child(3n){
+    border-right:0;
+  }
+
+  &:nth-last-child(-1n+3){
+    border-bottom:0;
+  }
+
+  min-height: calc(100% / 3);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  color: rgb(170, 45, 45);
+  font-size: 15vh;
+
+
+  text-shadow: 2px 2px rgba(0, 0, 0, .25);
+
+  &:hover {
+    background-color: lightskyblue;
+    user-select: none;
+  }
+  //user not select our text when clicking on it
+
+}

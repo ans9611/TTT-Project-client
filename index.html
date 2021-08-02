@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+    <head>
+      <title>Tic Tac Toe</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+
+      <!-- Do not add `link` tags-->
+      <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+
+      <!-- Do not add `script` tags-->
+      <script src="public/vendor.js" type="text/javascript" charset="utf-8" defer></script>
+      <script src="public/application.js" type="text/javascript" charset="utf-8" defer></script>
+    </head>
+
+    <body>
+      <h1>Tic Tac Toe</h1>
+      <div><p1 id="message"></p1></div>
+        <br>
+
+      <form id="sign-up">
+        <label>Email:</label>
+        <input name="credentials[email]" type="email">
+        <label>Password:</label>
+        <input name="credentials[password]" type="password">
+        <label>Password Confirmation:</label>
+        <input name="credentials[password_confirmation]" type="password">
+        <input type="submit" value="sign-up">
+      </form>
+
+      <br>
+
+      <form id="sign-in">
+        <label>Email:</label>
+        <input name="credentials[email]" type="email">
+        <label>Password:</label>
+        <input name="credentials[password]" type="password">
+        <input type="submit" value="sign-in">
+      </form>
+
+      <br>
+        <form id="sign-out">
+        <input type="submit" value="sign-out">
+        </form>
+      <br>
+
+        <form id="new-game">
+          <input type="submit" value="New Game">
+        </form>
+      <br>
+        <div>
+          <p1 id="gameMessage"></p1>
+        </div>
+
+  
+
+        <br>
+
+          <div>
+            <p1 id="playerMessage"></p1>
+          </div>
+
+  <section class="container">
+    <div class="row h-100 board" id="game-board">
+      <div id="cell-ID-0" data-index="0" class="col-4 box"></div>
+      <div id="cell-ID-1" data-index="1" class="col-4 box"></div>
+      <div id="cell-ID-2" data-index="2" class="col-4 box"></div>
+
+      <div id="cell-ID-3" data-index="3" class="col-4 box"></div>
+      <div id="cell-ID-4" data-index="4" class="col-4 box"></div>
+      <div id="cell-ID-5" data-index="5" class="col-4 box"></div>
+
+      <div id="cell-ID-6" data-index="6" class="col-4 box"></div>
+      <div id="cell-ID-7" data-index="7" class="col-4 box"></div>
+      <div id="cell-ID-8" data-index="8" class="col-4 box"></div>
+    </div>
+  </section>
+
+
+
+
+    </body>
+</html>

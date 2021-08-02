@@ -1,0 +1,4 @@
+gameBoard = {}
+
+module.exports{
+  gameBoard}

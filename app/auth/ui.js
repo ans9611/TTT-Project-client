@@ -33,6 +33,8 @@ const onSignOutSuccess = () => {
     $('#sign-out').hide();
     $("#new-game").hide()
     $('.box').hide()
+    $("#gameMessage").hide()
+    $("#playerMessage").hide()
 
 }
 const onSignOutFailure = () => {

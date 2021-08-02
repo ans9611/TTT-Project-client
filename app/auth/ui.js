@@ -2,8 +2,7 @@ const store = require('./../store')
 // const game = require('./../gameStore')
 
 const onSignUpSuccess = (response) => {
-  $('#message').text(`Thank you for signing! ${response.user.email}`)
-  console.log(response)
+  $('#message').text(`Thank you for signing Up! ${response.user.email} Sign in To play Game!!`)
 }
 
 const onSighUpFailure = () => {
@@ -13,9 +12,6 @@ const onSighUpFailure = () => {
 
 const onSignInSuccess = (response) => {
   $('#message').text(`Welcome Back! ${response.user.email}`);
-  console.log(response)
-  console.log(response.user)
-  console.log(response.user.token)
   store.token = response.user.token
   store.id = response.user._id
   $('#sign-up').trigger('reset')
@@ -27,7 +23,6 @@ const onSignInSuccess = (response) => {
 
 const onSignInFailure = () => {
   $('#message').text(`Unable to sign in :( check email or password again!`);
-  console.log(response);
   $('#sign-in').trigger('reset');
 }
 
@@ -45,6 +40,7 @@ const onSignOutFailure = () => {
 }
 
 const onCreateNewGameSuccess = (response) => {
+  $("#message").show()
   $('#message').text(`Game Begins`)
   $("#gameMessage").text("")
   $('.box').show()
@@ -53,6 +49,7 @@ const onCreateNewGameSuccess = (response) => {
   $('.box').css("background","");
   $(".box").css("transparent", "");
   $(".box").text("")
+  $("#new-game").hide();
 
   store.game = response.game
 
@@ -63,23 +60,32 @@ const onCreateNewGameFailure = () => {
 }
 
 const onPlayGameSuccess = (response) => {
-  $('#message').text('onPlayGameSuccess')
+  $('#message').text('Successfully Clicked!')
   store.game = response.game
 }
 
+const currentPlayerMessage = (currentPlayer, opponent) => {
+  $("#playerMessage").text(
+    `Player ${currentPlayer} just placed on the board. Now it's ${opponent}'s turn!`
+  );
+};
+
 const onPlayGameFailure = () => {
-  $('#message').text('on play game faile')
+  $('#message').text('Unable to Click!')
 }
 
 const onGameWin = (winner) => {
-  $("#gameMessage").text(`${winner} WINS!`);
+  $("#gameMessage").text(`Congrats! ${winner} WINS! Click "New Game" to play Again!`);
   $("#new-game").show();
+  $("#playerMessage").text("")
+  $("#message").hide()
 }
 
 const onGameTie = () => {
-  $("#gameMessage").text(`There Cannot be two suns in the sky. Play Again!`);
+  $("#gameMessage").text(`It is Tie! There Cannot be two suns in the sky. Play Again!`);
   $("#new-game").show();
-
+  $("#playerMessage").text("")
+  $("#message").hide();
 }
 
 module.exports = {
@@ -95,4 +101,5 @@ module.exports = {
   onPlayGameFailure,
   onGameWin,
   onGameTie,
+  currentPlayerMessage,
 };

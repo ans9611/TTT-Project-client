@@ -9,9 +9,6 @@ const onSignUp = function(event){
   const form = event.target
   const data = getFormFields(form)
 
-  console.log(form)
-  console.log(data)
-
   api.signUp(data)
   .then(ui.onSignUpSuccess)
   .catch(ui.onSighUpFailure)
@@ -20,9 +17,7 @@ const onSignUp = function(event){
 const onSignIn = function(event){
   event.preventDefault()
   form = event.target
-  console.log(form)
   data = getFormFields(form)
-  console.log(data)
 
   api.signIn(data)
     .then(ui.onSignInSuccess)
@@ -30,6 +25,7 @@ const onSignIn = function(event){
 }
 
 const onSignOut = function (event) {
+  event.preventDefault();
   api.signOut()
   .then(ui.onSignOutSuccess)
   .catch(ui.onSignOutFailure)
@@ -39,8 +35,6 @@ const onNewGame = function (event) {
   event.preventDefault()
   form = event.target;
   data = getFormFields(form);
-
-  console.log(data)
 
     api.newGame(data)
     .then(ui.onCreateNewGameSuccess)
@@ -61,15 +55,13 @@ const onBoxClick = function (event) {
     gameCurrentPlayer: currentPlayer
   }
 
-
-
     if (store.game.over === true) {
-      ui.onPlayGameFailure
+      ui.onPlayGameFailure()
       return;
     }
 
     if (gameBoard[requestData.gameIndex] === "X" || gameBoard[requestData.gameIndex] === "O") {
-      ui.onPlayGameFailure;
+      ui.onPlayGameFailure();
       return
     }
 
@@ -77,11 +69,12 @@ const onBoxClick = function (event) {
       box.css("background", "transparent");
       box.text(currentPlayer);
       gameOver = false
+      let opponent = currentPlayer === "O" ? "X" : "O";
+      ui.currentPlayerMessage(currentPlayer, opponent);
     }
 
   gameBoard[requestData.gameIndex] = requestData.gameCurrentPlayer;
 
-  console.log(gameBoard)
    if (
      //  row win
      (gameBoard[0] === gameBoard[1] && gameBoard[1] === gameBoard[2] && (gameBoard[2] === "X" || gameBoard[2] === "O")) ||
@@ -97,13 +90,11 @@ const onBoxClick = function (event) {
    ) {
      gameOver = true
      ui.onGameWin(currentPlayer)
-
    }
 
   let count = gameBoard.filter(value => value != "").length
   if (count === 8) {
     gameOver = true
-    console.log('tie!')
     ui.onGameTie()
   }
 
@@ -117,10 +108,9 @@ const onBoxClick = function (event) {
 
 currentPlayer = currentPlayer === "O" ? "X" : "O";
 
- api.playGame(game).then(ui.onPlayGameSuccess).catch(ui.onPlayGameFailure);
-
-
-
+ api.playGame(game)
+ .then(ui.onPlayGameSuccess)
+ .catch(ui.onPlayGameFailure);
 }
 
 module.exports = {

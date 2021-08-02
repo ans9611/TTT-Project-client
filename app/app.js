@@ -10,9 +10,7 @@ $(() => {
   $('#sign-out').on('submit', addEvents.onSignOut)
   $('#new-game').on('submit', addEvents.onNewGame)
   $(".box").on("click", addEvents.onBoxClick)
-   $("#play-again").on("submit", addEvents.onPlayAgain);
   $("#sign-out").hide()
   $('#new-game').hide()
   $(".box").hide()
-  $("#play-again").hide()
 })
